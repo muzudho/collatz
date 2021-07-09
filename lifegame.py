@@ -5,7 +5,7 @@ print("Please enter a decimal number. Example: 27")
 dec = int(input())
 
 # 初回表示
-print(f"Start")
+print(f"Start {dec:b} ({dec})")
 
 # 計算回数
 count = 0
