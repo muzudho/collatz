@@ -1,5 +1,5 @@
 # 10進数を入力してください。
-print("Please enter a decimal number. Example: 31")
+print("Please enter a decimal number. Example: 27")
 dec = int(input())
 
 count = 0
