@@ -1,5 +1,6 @@
 """
 TODO (2021-07-10 sat) ちゃんと作れてるか分かんない（＾～＾）
+FIXME (2021-07-11 sun) `7 7 2` で探索したら 37 から 12 が生えていておかしい（＾～＾）
 
 左寄せ表記（Left justified）
 逆順（Reverse）
@@ -11,7 +12,6 @@ numbers = set()
 END_NORMAL = 0
 END_DUPURICATE = 1
 END_CUTOFF4 = 2
-END_CUTOFF7 = 3
 END_BI = 4
 END_DEPTH = 5
 
@@ -34,7 +34,6 @@ def search(dec, depth, breadth, bi_count):
         0: 正常終了
         1: 重複をカット
         2: '4'をカット
-        3: '7'をカット
         4: 2倍を終了
         5: 深さが末端
     """
@@ -68,15 +67,14 @@ def search(dec, depth, breadth, bi_count):
     if (dec - 1) % 3 == 0:
         # 7 から 1 引いて 3 で割ったら 2 だが、2 から 7 は生えないぜ（＾～＾）？
         if dec == 7:
-            # なんだかおかしいから抜けよ（＾～＾）
-            print(f"{indent}Edge case: 7 is cutoff")
-            return END_CUTOFF7
+            # なんだかおかしいから飛ばそ（＾～＾）
+            print(f"{indent}Edge case: 7 is pass")
+        else:
+            # じゃあ 1 引いて 3 で割ったろ（＾～＾）
+            dec = (dec - 1 ) // 3
+            #print(f"C ({dec}) {dec:b}")
 
-        # じゃあ 1 引いて 3 で割ったろ（＾～＾）
-        dec = (dec - 1 ) // 3
-        #print(f"C ({dec}) {dec:b}")
-
-        search(dec=dec, depth=depth-1, breadth=breadth, bi_count = 0)
+            search(dec=dec, depth=depth-1, breadth=breadth, bi_count = 0)
 
     # 2倍を何回かやるのも試すぜ（＾～＾）
     if 4 < bi_count:
