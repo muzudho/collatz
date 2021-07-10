@@ -35,13 +35,21 @@ def search(dec, depth, breadth, bi_count):
 
     if dec == 4:
         # 4から1に循環するので終わり（＾～＾）
+        print(f"{indent}Edge case: 4 is cutoff")
         return
 
     # 1 引いて 3 で割れるか調べるぜ（＾～＾）
     if (dec - 1) % 3 == 0:
+        # 7 から 1 引いて 3 で割ったら 2 だが、2 から 7 は生えないぜ（＾～＾）？
+        if dec == 7:
+            # なんだかおかしいから抜けよ（＾～＾）
+            print(f"{indent}Edge case: 7 is cutoff")
+            return
+
         # じゃあ 1 引いて 3 で割ったろ（＾～＾）
         dec = (dec - 1 ) // 3
         #print(f"C ({dec}) {dec:b}")
+
         search(dec=dec, depth=depth-1, breadth=breadth, bi_count = 0)
 
     # 2倍を何回かやるのも試すぜ（＾～＾）
@@ -61,7 +69,7 @@ def search(dec, depth, breadth, bi_count):
     return
 
 # 10進数、深さと幅を入力してください。
-print("Please enter a decimal number, depth and breadth. Example: 8 4 6")
+print("Please enter a decimal number, depth and breadth. Example: 8 7 2")
 
 # めんどくさいんで、内部的には10進で計算
 dec, max_depth, breadth = input().split()
