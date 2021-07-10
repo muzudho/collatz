@@ -42,10 +42,18 @@ def print_number():
     print(f"[{count_str}] ({dec_str}) {bin_str}")
 
 # 10進数を入力してください。
-print("Please enter a decimal number. Example: 27")
+print("Please enter a decimal number.")
+print("Example 1: 27")
+print("Example 2: 0b11011")
 
 # めんどくさいんで、内部的には10進で計算
-dec = int(input())
+number_str = input()
+
+if number_str.startswith("0b"):
+    bin_str = number_str[2:]
+    dec = int(bin_str, 2) # 2進数で入力されたものを10進に変換
+else:
+    dec = int(number_str) # 10進数
 
 # 初回表示
 print(f"Start")
