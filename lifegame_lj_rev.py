@@ -5,41 +5,38 @@ TODO (2021-07-10 sat) ちゃんと作れてるか分かんない（＾～＾）
 逆順（Reverse）
 """
 
-# 10進数を入力してください。
-print("Please enter a decimal number. Example: 16")
+def search(dec, dec_width, depth, depth_width, bi_count, dec_before_bi):
+    """
+    dec : int
+        数
+    dec_width : int
+        10進数表示の桁揃え用
+    depth : int
+        深さ
+    depth_width : int
+        深さの表示の桁揃え用
+    bi_count : int
+        2倍した回数（＾～＾）
+    dec_before_bi : int
+        2倍する前の数（＾～＾）
+    """
 
-# めんどくさいんで、内部的には10進で計算
-dec = int(input())
-
-# 初回表示
-print(f"Start {dec:b} ({dec})")
-
-# 計算回数
-count = 0
-# 桁揃えに利用
-count_width = 2
-dec_width = 2
-
-# 2倍した回数（＾～＾）
-bi_count = 0
-# 2倍する前の数（＾～＾）
-dec_before_bi = 0
-
-while count < 20:
-
+    if depth == 0:
+        return
+    
     # めんどくさいんで、２進は文字列で
-    count_str = f"{count}"
+    count_str = f"{max_depth - depth}"
     bin = f"{dec:b}"
 
     # 桁数の更新
     # めんどくさいんで一気に足すぜ（＾～＾）
-    if count_width < len(count_str):
-        count_width += 5
+    if depth_width < len(count_str):
+        depth_width += 5
     if dec_width < len(str(dec)):
         dec_width += 5
 
     # 表示
-    count_str = count_str.rjust(count_width)
+    count_str = count_str.rjust(depth_width)
     dec_str = str(dec).rjust(dec_width)
     print(f"[{count_str}] ({dec_str}) {bin}")
 
@@ -68,8 +65,21 @@ while count < 20:
                 # キリが無いので 2倍 するのは終わり（＾～＾）
                 bi_count = 0
                 dec = dec_before_bi
-                break
+                return
 
-    count += 1
+    search(dec=dec, dec_width=dec_width, depth_width=depth_width, depth=depth-1, bi_count = bi_count, dec_before_bi = dec_before_bi)
 
+# 10進数を入力してください。
+print("Please enter a decimal number. Example: 16")
+
+# めんどくさいんで、内部的には10進で計算
+dec = int(input())
+
+# 初回表示
+print(f"Start {dec:b} ({dec})")
+
+# 打ち止めの深さ
+max_depth = 20
+
+search(dec=dec, dec_width=2, depth=max_depth, depth_width=2, bi_count = 0, dec_before_bi = 0)
 print(f"Finished")
