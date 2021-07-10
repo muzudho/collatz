@@ -69,14 +69,13 @@ def search(dec, depth, breadth, bi_count):
         if dec == 7:
             # なんだかおかしいから飛ばそ（＾～＾）
             print(f"{indent}Edge case: 7 is pass")
-        else:
+        elif ((dec - 1) // 3) % 2 == 1:
+            # 1 を引いて 3 で割ったら奇数なら（＾～＾）
             # じゃあ 1 引いて 3 で割ったろ（＾～＾）
             dec = (dec - 1 ) // 3
             #print(f"C ({dec}) {dec:b}")
 
-            if dec % 2 == 1:
-                # 奇数なら探索、偶数なら無視（＾～＾）
-                search(dec=dec, depth=depth-1, breadth=breadth, bi_count = 0)
+            search(dec=dec, depth=depth-1, breadth=breadth, bi_count = 0)
 
     # 2倍を何回かやるのも試すぜ（＾～＾）
     if 4 < bi_count:
