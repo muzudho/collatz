@@ -74,7 +74,9 @@ def search(dec, depth, breadth, bi_count):
             dec = (dec - 1 ) // 3
             #print(f"C ({dec}) {dec:b}")
 
-            search(dec=dec, depth=depth-1, breadth=breadth, bi_count = 0)
+            if dec % 2 == 1:
+                # 奇数なら探索、偶数なら無視（＾～＾）
+                search(dec=dec, depth=depth-1, breadth=breadth, bi_count = 0)
 
     # 2倍を何回かやるのも試すぜ（＾～＾）
     if 4 < bi_count:
