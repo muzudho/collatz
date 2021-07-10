@@ -41,8 +41,8 @@ def print_number():
 
     print(f"[{count_str}] ({dec_str}) {bin_str}")
 
-# 10進数を入力してください。
-print("Please enter a decimal number.")
+# 数を入力してください。
+print("Please enter a number.")
 print("Example 1: 27")
 print("Example 2: 0b11011")
 

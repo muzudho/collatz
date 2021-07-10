@@ -95,8 +95,8 @@ def search(dec, depth, breadth, bi_count):
     # 掘るの終わり
     return END_NORMAL
 
-# 10進数、深さと幅を入力してください。
-print("Please enter a decimal number, depth and breadth.")
+# 数、深さと幅を入力してください。
+print("Please enter a number, depth and breadth.")
 print("Example 1: 8 7 2")
 print("Example 2: 0b1000 7 2")
 
