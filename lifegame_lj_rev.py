@@ -59,17 +59,16 @@ def search(dec, depth, bi_count):
     # 掘るの終わり
     return
 
-# 10進数を入力してください。
-print("Please enter a decimal number. Example: 8")
+# 10進数と深さを入力してください。
+print("Please enter a decimal number and depth. Example: 8 5")
 
 # めんどくさいんで、内部的には10進で計算
-dec = int(input())
+dec, max_depth = input().split()
+dec = int(dec) # 10進数
+max_depth = int(max_depth) # 打ち止めの深さ
 
 # 初回表示
 print(f"Start {dec:b} ({dec})")
-
-# 打ち止めの深さ
-max_depth = 5
 
 search(dec=dec, depth=max_depth, bi_count = 0)
 print(f"Finished")
