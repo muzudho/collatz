@@ -5,6 +5,8 @@ TODO (2021-07-10 sat) ちゃんと作れてるか分かんない（＾～＾）
 逆順（Reverse）
 """
 
+numbers = set()
+
 def search(dec, depth, breadth, bi_count):
     """
     dec : int
@@ -20,23 +22,27 @@ def search(dec, depth, breadth, bi_count):
     if depth == 0:
         return
 
-    # めんどくさいんで、２進は文字列で
-    bin = f"{dec:b}"
-
     # 深さだけインデントしようぜ（＾～＾）？
     indent = ""
     for i in range(0, max_depth-depth):
         indent += "  "
 
-    # 表示
-    print(f"{indent}({dec}) {bin}")
+    # 重複した枝とか見たくないんで（＾～＾）
+    if dec in numbers:
+        print(f"{indent}{dec} is a dupricate")
+        return
 
-    #print(f"A ({dec}) {dec:b}")
+    numbers.add(dec)
 
     if dec == 4:
         # 4から1に循環するので終わり（＾～＾）
-        print(f"{indent}Edge case: 4 is cutoff")
+        print(f"{indent}(4) {4:b} is edge case")
         return
+
+    # 表示
+    print(f"{indent}({dec}) {dec:b}")
+
+    #print(f"A ({dec}) {dec:b}")
 
     # 1 引いて 3 で割れるか調べるぜ（＾～＾）
     if (dec - 1) % 3 == 0:
