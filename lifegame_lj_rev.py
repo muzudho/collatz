@@ -5,19 +5,21 @@ TODO (2021-07-10 sat) ちゃんと作れてるか分かんない（＾～＾）
 逆順（Reverse）
 """
 
-def search(dec, depth, bi_count):
+def search(dec, depth, breadth, bi_count):
     """
     dec : int
         数
     depth : int
         深さ
+    breadth : int
+        幅
     bi_count : int
         2倍した回数（＾～＾）
     """
 
     if depth == 0:
         return
-    
+
     # めんどくさいんで、２進は文字列で
     bin = f"{dec:b}"
 
@@ -36,7 +38,7 @@ def search(dec, depth, bi_count):
         # じゃあ 1 引いて 3 で割ったろ（＾～＾）
         dec = (dec - 1 ) // 3
         #print(f"C ({dec}) {dec:b}")
-        search(dec=dec, depth=depth-1, bi_count = 0)
+        search(dec=dec, depth=depth-1, breadth=breadth, bi_count = 0)
 
     else:
         # キリが無いので 2倍 するのは終わり（＾～＾）
@@ -44,31 +46,27 @@ def search(dec, depth, bi_count):
             # 掘るの終わり
             return
 
-        # ダメなら ２倍しようぜ（＾～＾）？
-        dec = dec * 2
-        #print(f"D ({dec}) {dec:b}")
+        # ２倍しようぜ（＾～＾）？
+        for i in range(0, breadth):
+            dec = dec * 2
+            #print(f"D ({dec}) {dec:b}")
 
-        search(dec=dec, depth=depth-1, bi_count = bi_count+1)
-
-        # ４倍して探索してもいいのでは（＾～＾）？
-        dec = dec * 2
-        #print(f"E ({dec}) {dec:b}")
-
-        search(dec=dec, depth=depth-1, bi_count = bi_count+1)
+            search(dec=dec, depth=depth-1, breadth=breadth, bi_count = bi_count+1)
 
     # 掘るの終わり
     return
 
-# 10進数と深さを入力してください。
-print("Please enter a decimal number and depth. Example: 8 5")
+# 10進数、深さと幅を入力してください。
+print("Please enter a decimal number, depth and breadth. Example: 8 5 2")
 
 # めんどくさいんで、内部的には10進で計算
-dec, max_depth = input().split()
+dec, max_depth, breadth = input().split()
 dec = int(dec) # 10進数
 max_depth = int(max_depth) # 打ち止めの深さ
+breadth = int(breadth) # 探索の木の幅
 
 # 初回表示
 print(f"Start {dec:b} ({dec})")
 
-search(dec=dec, depth=max_depth, bi_count = 0)
+search(dec=dec, depth=max_depth, breadth=breadth, bi_count = 0)
 print(f"Finished")
