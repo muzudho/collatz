@@ -21,3 +21,9 @@ python lifegame.py
 ```shell
 python lifegame_lj.py
 ```
+
+木を生やす。左寄せライフゲーム表示(Lifegame like, Left justified, Reverse):  
+
+```shell
+python lifegame_lj_rev.py
+```
