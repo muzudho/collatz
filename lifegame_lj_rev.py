@@ -96,11 +96,19 @@ def search(dec, depth, breadth, bi_count):
     return END_NORMAL
 
 # 10進数、深さと幅を入力してください。
-print("Please enter a decimal number, depth and breadth. Example: 8 7 2")
+print("Please enter a decimal number, depth and breadth.")
+print("Example 1: 8 7 2")
+print("Example 2: 0b1000 7 2")
 
 # めんどくさいんで、内部的には10進で計算
-dec, max_depth, breadth = input().split()
-dec = int(dec) # 10進数
+number_str, max_depth, breadth = input().split()
+
+if number_str.startswith("0b"):
+    bin_str = number_str[2:]
+    dec = int(bin_str, 2) # 2進数で入力されたものを10進に変換
+else:
+    dec = int(number_str) # 10進数
+
 max_depth = int(max_depth) # 打ち止めの深さ
 breadth = int(breadth) # 探索の木の幅
 
