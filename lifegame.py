@@ -1,5 +1,11 @@
+import os
+import numpy as np
+
+# 環境変数
+RADIX = int(os.getenv("RADIX", 2))
+
 count_str = ""
-bin_str = ""
+radix_str = ""
 dec_str = ""
 # 桁揃えに利用。10進数27 を指定したときの見やすさをデフォルトにするぜ（＾～＾）
 count_width = 3
@@ -9,37 +15,39 @@ count = 0
 
 def update_print_number(dec):
     global count_str
-    global bin_str
+    global radix_str
     global dec_str
     global count_width
     global width
     global count
+    global RADIX
 
-    # めんどくさいんで、２進は文字列で
     count_str = f"{count}"
-    bin_str = f"{dec:b}"
+    radix_number = np.base_repr(dec, RADIX)
+    radix_str = f"{radix_number}"
 
     # 桁数の更新
     # めんどくさいんで一気に足すぜ（＾～＾）
     if count_width < len(count_str):
         count_width += 5
-    if width < len(bin_str):
+    if width < len(radix_str):
         width += 5
 
     count_str = count_str.rjust(count_width)
-    bin_str = bin_str.rjust(width)
+    radix_str = radix_str.rjust(width)
     dec_str = str(dec)
 
     count += 1
 
 def print_number():
     global count_str
-    global bin_str
+    global radix_str
     global dec_str
 
-    print(f"[{count_str}] {bin_str} ({dec})")
+    print(f"[{count_str}] {radix_str} ({dec_str})")
 
 # 10進数を入力してください。
+print(f"RADIX={RADIX}")
 print("Please enter a decimal number. Example: 27")
 
 # めんどくさいんで、内部的には10進で計算

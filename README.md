@@ -13,6 +13,7 @@ python main.py
 ライフゲーム表示(Lifegame like):  
 
 ```shell
+set RADIX=4
 python lifegame.py
 ```
 
