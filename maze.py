@@ -56,25 +56,32 @@ def choice_next():
         next_width = 0
 
         if dec != 4 and dec != 7:
+            dec_minus_one_divided_of_3 = ((dec - 1) % 3 == 0)
             next = (dec - 1 ) // 3
-            if next != 1 and next != 4 and next != 7 and next % 2 == 1:
-                # 「３で割って１足す」の逆方向へ（＾～＾）
+            next_is_odd = (next % 2 == 1)
+            if next != 1 and next != 4 and next != 7 and dec_minus_one_divided_of_3 and next_is_odd:
+                # 「３掛けて１足す」の逆方向へ（＾～＾）
                 next_list_list.append([next])
                 next_width = max(next_width, len(str(next)))
             else:
                 # 「半分」の逆方向へ（＾～＾）
-                next = dec
-                for i in range(0,10 - len(next_list_list)):
-                    next *= 2
-                    next_list_list.append([next])
-                    next_width = max(next_width, len(str(next)))
+                for j in range(0,10 - len(next_list_list)):
+                    next = dec
+                    next_list = []
+                    for i in range(0,j+1):
+                        next *= 2
+                        next_list.append(next)
+                        next_width = max(next_width, len(str(next)))
+                    next_list_list.append(next_list)
 
         print("Please enter a left number:")
         for j, next_list in enumerate(next_list_list):
             if j!=0:
+                next_str = ""
                 for i, next in enumerate(next_list):
-                    next_str = str(next_list[i]).rjust(next_width)
-                    print(f"{j}: {next_str}")
+                    next_str += str(next_list[i]).rjust(next_width) + " "
+
+                print(f"{j}: {next_str}")
 
         print(f"g: goal")
         print("")
@@ -97,7 +104,7 @@ def choice_next():
 
 while True:
     print_tree_path()
-    
+
     ret = choice_next()
     if ret == CHOICE_GOAL:
         break
