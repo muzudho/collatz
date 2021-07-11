@@ -6,6 +6,12 @@ FIXME (2021-07-11 sun) `7 7 2` で探索したら 37 から 12 が生えてい�
 逆順（Reverse）
 """
 
+import os
+import numpy as np
+
+# 環境変数
+RADIX = int(os.getenv("RADIX", 2))
+
 numbers = set()
 
 # Return code
@@ -32,7 +38,7 @@ def update_print_number(dec, depth):
     for i in range(0, max_depth-depth):
         indent += "  "
 
-    radix_str = f"{dec:b}"
+    radix_str = str(np.base_repr(dec, RADIX))
 
     # 重複した枝とか見たくないんで（＾～＾）
     if dec in numbers:
@@ -40,7 +46,12 @@ def update_print_number(dec, depth):
 
     elif dec == 4:
         # 4から1に循環するので終わり（＾～＾）
-        radix_str = f"{radix_str} is edge case"
+        radix_str = f"{radix_str} is an edge case"
+
+    elif dec == 7:
+        # 7 から 1 引いて 3 で割ったら 2 だが、2 から 7 は生えないぜ（＾～＾）？
+        # なんだかおかしいから飛ばそ（＾～＾）
+        radix_str = f"{radix_str} is an edge case"
 
     dec_str = str(dec)
 
@@ -95,10 +106,10 @@ def search(dec, depth, breadth, bi_count):
 
     # 1 引いて 3 で割れるか調べるぜ（＾～＾）
     if (dec - 1) % 3 == 0:
-        # 7 から 1 引いて 3 で割ったら 2 だが、2 から 7 は生えないぜ（＾～＾）？
         if dec == 7:
+            # 7 から 1 引いて 3 で割ったら 2 だが、2 から 7 は生えないぜ（＾～＾）？
             # なんだかおかしいから飛ばそ（＾～＾）
-            print(f"{indent}Edge case: 7 is pass")
+            pass
         elif ((dec - 1) // 3) % 2 == 1:
             # 1 を引いて 3 で割ったら奇数なら（＾～＾）
             # じゃあ 1 引いて 3 で割ったろ（＾～＾）
@@ -127,6 +138,7 @@ def search(dec, depth, breadth, bi_count):
     return END_NORMAL
 
 # 数、深さと幅を入力してください。
+print(f"RADIX={RADIX}")
 print("Please enter a number, depth and breadth.")
 print("Example 1: 8 7 2")
 print("Example 2: 0b1000 7 2")

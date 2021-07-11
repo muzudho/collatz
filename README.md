@@ -13,14 +13,12 @@ python main.py
 ライフゲーム表示(Lifegame like):  
 
 ```shell
-set RADIX=4
 python lifegame.py
 ```
 
 左寄せライフゲーム表示(Lifegame like, Left justified):  
 
 ```shell
-set RADIX=8
 python lifegame_lj.py
 ```
 
@@ -28,4 +26,11 @@ python lifegame_lj.py
 
 ```shell
 python lifegame_lj_rev.py
+```
+
+## Settings
+
+```shell
+# Default: 10
+set RADIX=4
 ```
