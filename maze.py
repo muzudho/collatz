@@ -64,22 +64,25 @@ def choice_next():
 
         next_list = [0]
         point_list = [0]
+        next_width = 0
 
         if dec != 4 and dec != 7:
             next = (dec - 1 ) // 3
             if next != 1 and next != 4 and next != 7 and next % 2 == 1:
                 next_list.append(next)
                 point_list.append(3) # 奇数は 3 得点
-                end = len(next_list)
-                print(f"{end-1}: {point_list[end-1]:>3}  {next_list[end-1]}")
+                next_width = max(next_width, len(str(next)))
 
             next = dec * 2
             for i in range(0,10 - len(next_list)):
                 next *= 2
                 next_list.append(next)
                 point_list.append(-1-1*i) # 偶数は減点
-                end = len(next_list)
-                print(f"{end-1}: {point_list[end-1]:>3}  {next_list[end-1]}")
+                next_width = max(next_width, len(str(next)))
+
+        for i, next in enumerate(next_list):
+            if i!=0:
+                print(f"{i}: {point_list[i]:>3}  {next_list[i]}")
 
         print(f"g: goal")
         print("")
