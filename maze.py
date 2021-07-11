@@ -55,7 +55,7 @@ def choice_next():
                 print(f"{end-1}: {next_list[end-1]}")
 
             next = dec * 2
-            for i in range(0,9):
+            for i in range(0,10 - len(next_list)):
                 next *= 2
                 next_list.append(next)
                 end = len(next_list)
@@ -67,7 +67,7 @@ def choice_next():
         choice = input()
         if is_integer(choice):
             choice = int(choice)
-            if 1 <= choice and choice < 10:
+            if 1 <= choice and choice < len(next_list):
                 dec = next_list[choice]
 
                 # 奇数なら得点
