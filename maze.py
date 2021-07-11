@@ -54,14 +54,16 @@ def choice_next():
         if dec != 4 and dec != 7:
             next = (dec - 1 ) // 3
             if next != 1 and next != 4 and next != 7 and next % 2 == 1:
+                # 「３で割って１足す」の逆方向へ（＾～＾）
                 next_list.append(next)
                 next_width = max(next_width, len(str(next)))
-
-            next = dec * 2
-            for i in range(0,10 - len(next_list)):
-                next *= 2
-                next_list.append(next)
-                next_width = max(next_width, len(str(next)))
+            else:
+                # 「半分」の逆方向へ（＾～＾）
+                next = dec
+                for i in range(0,10 - len(next_list)):
+                    next *= 2
+                    next_list.append(next)
+                    next_width = max(next_width, len(str(next)))
 
         print("Please enter a left number:")
         for i, next in enumerate(next_list):
