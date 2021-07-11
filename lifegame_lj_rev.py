@@ -12,6 +12,7 @@ import numpy as np
 # 環境変数
 RADIX = int(os.getenv("RADIX", 2))
 BREADTH = int(os.getenv("BREADTH", 2)) # 探索の木の幅
+DEPTH = int(os.getenv("DEPTH", 8)) # 探索の木の深さ
 
 numbers = set()
 
@@ -31,12 +32,12 @@ def update_print_number(dec, depth):
     global radix_str
     global dec_str
     global numbers
-    global max_depth
+    global DEPTH
     global indent
 
     # 深さだけインデントしようぜ（＾～＾）？
     indent = ""
-    for i in range(0, max_depth-depth):
+    for i in range(0, DEPTH-depth):
         indent += "  "
 
     radix_str = str(np.base_repr(dec, RADIX))
@@ -139,12 +140,13 @@ def search(dec, depth, bi_count):
 # 数、深さと幅を入力してください。
 print(f"RADIX={RADIX}")
 print(f"BREADTH={BREADTH}")
-print("Please enter a number and depth.")
-print("Example 1: 8 7")
-print("Example 2: 0b1000 7")
+print(f"DEPTH={DEPTH}")
+print("Please enter a number.")
+print("Example 1: 8")
+print("Example 2: 0b1000")
 
 # めんどくさいんで、内部的には10進で計算
-number_str, max_depth = input().split()
+number_str = input()
 
 if number_str.startswith("0b"):
     bin_str = number_str[2:]
@@ -152,10 +154,8 @@ if number_str.startswith("0b"):
 else:
     dec = int(number_str) # 10進数
 
-max_depth = int(max_depth) # 打ち止めの深さ
-
 # 初回表示
 print(f"Start {dec:b} ({dec})")
 
-search(dec=dec, depth=max_depth, bi_count = 0)
+search(dec=dec, depth=DEPTH, bi_count = 0)
 print(f"Finished")

@@ -31,9 +31,16 @@ python lifegame_lj_rev.py
 ## Settings
 
 ```shell
+# 基数
 # Default: 10
 set RADIX=4
 
+# 探索の深さ
+# Default: 8
+# using: lifegame_lj_rev.py
+set DEPTH=3
+
+# 探索の幅
 # Default: 2
 # using: lifegame_lj_rev.py
 set BREADTH=3
