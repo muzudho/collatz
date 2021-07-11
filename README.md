@@ -33,4 +33,8 @@ python lifegame_lj_rev.py
 ```shell
 # Default: 10
 set RADIX=4
+
+# Default: 2
+# using: lifegame_lj_rev.py
+set BREADTH=3
 ```

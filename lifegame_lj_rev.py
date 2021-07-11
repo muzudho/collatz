@@ -11,6 +11,7 @@ import numpy as np
 
 # 環境変数
 RADIX = int(os.getenv("RADIX", 2))
+BREADTH = int(os.getenv("BREADTH", 2)) # 探索の木の幅
 
 numbers = set()
 
@@ -62,7 +63,7 @@ def print_number():
 
     print(f"{indent}({dec_str}) {radix_str}")
 
-def search(dec, depth, breadth, bi_count):
+def search(dec, depth, bi_count):
     """
     Parameters
     ----------
@@ -70,8 +71,6 @@ def search(dec, depth, breadth, bi_count):
         数
     depth : int
         深さ
-    breadth : int
-        幅
     bi_count : int
         2倍した回数（＾～＾）
 
@@ -116,7 +115,7 @@ def search(dec, depth, breadth, bi_count):
             dec = (dec - 1 ) // 3
             #print(f"C ({dec}) {dec:b}")
 
-            search(dec=dec, depth=depth-1, breadth=breadth, bi_count = 0)
+            search(dec=dec, depth=depth-1, bi_count = 0)
 
     # 2倍を何回かやるのも試すぜ（＾～＾）
     if 4 < bi_count:
@@ -125,11 +124,11 @@ def search(dec, depth, breadth, bi_count):
         return END_BI
 
     # ２倍しようぜ（＾～＾）？
-    for i in range(0, breadth):
+    for i in range(0, BREADTH):
         dec = dec * 2
         #print(f"D ({dec}) {dec:b}")
 
-        ret_code = search(dec=dec, depth=depth-1, breadth=breadth, bi_count = bi_count+1)
+        ret_code = search(dec=dec, depth=depth-1, bi_count = bi_count+1)
         if ret_code == END_DUPURICATE:
             # 重複の枝なら、さっさと終わろ（＾～＾）
             break
@@ -139,12 +138,13 @@ def search(dec, depth, breadth, bi_count):
 
 # 数、深さと幅を入力してください。
 print(f"RADIX={RADIX}")
-print("Please enter a number, depth and breadth.")
-print("Example 1: 8 7 2")
-print("Example 2: 0b1000 7 2")
+print(f"BREADTH={BREADTH}")
+print("Please enter a number and depth.")
+print("Example 1: 8 7")
+print("Example 2: 0b1000 7")
 
 # めんどくさいんで、内部的には10進で計算
-number_str, max_depth, breadth = input().split()
+number_str, max_depth = input().split()
 
 if number_str.startswith("0b"):
     bin_str = number_str[2:]
@@ -153,10 +153,9 @@ else:
     dec = int(number_str) # 10進数
 
 max_depth = int(max_depth) # 打ち止めの深さ
-breadth = int(breadth) # 探索の木の幅
 
 # 初回表示
 print(f"Start {dec:b} ({dec})")
 
-search(dec=dec, depth=max_depth, breadth=breadth, bi_count = 0)
+search(dec=dec, depth=max_depth, bi_count = 0)
 print(f"Finished")
