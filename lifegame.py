@@ -1,9 +1,11 @@
 count_str = ""
 bin_str = ""
 dec_str = ""
-# 桁揃えに利用
-count_width = 2
+# 桁揃えに利用。10進数27 を指定したときの見やすさをデフォルトにするぜ（＾～＾）
+count_width = 3
 width = 15
+# 計算回数
+count = 0
 
 def update_print_number(dec):
     global count_str
@@ -44,19 +46,19 @@ print("Please enter a decimal number. Example: 27")
 dec = int(input())
 
 # 初回表示
-print(f"Start {dec:b} ({dec})")
-
-# 計算回数
-count = 0
+print(f"Start")
+update_print_number(dec)
+print_number()
 
 while True:
     # 奇数になるまで２で割るぜ（＾～＾）
     while dec % 2 == 0:
         dec = dec // 2
 
-    # 表示
-    update_print_number(dec)
-    print_number()
+        # 表示
+        # TODO 偶数なんで省くオプションとか欲しい（＾～＾）
+        update_print_number(dec)
+        print_number()
 
     # 1 だったら抜けるぜ（＾～＾）
     if dec==1:
@@ -64,5 +66,9 @@ while True:
 
     # 3x+1 するぜ（＾～＾）
     dec = 3 * dec + 1
+
+    # 表示
+    update_print_number(dec)
+    print_number()
 
 print(f"Finished")
