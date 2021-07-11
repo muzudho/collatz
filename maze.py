@@ -32,8 +32,16 @@ def is_integer(n):
 def print_tree_path():
     global tree_path
 
+    multiples_of_3_flag = False
+
     for i, node in enumerate(tree_path):
         print(f"{node}", end="")
+
+        # 3の倍数だったら１回だけメッセージを出すぜ（＾～＾）
+        if not multiples_of_3_flag and node % 3 == 0:
+            print(f"(Multiples of 3)", end="")
+            multiples_of_3_flag = True
+
         if i<len(tree_path):
             print(f"--", end="")
 
@@ -51,8 +59,10 @@ def choice_next():
         next_width = 0
 
         if dec != 4 and dec != 7:
+            # 割り切れることのチェック（＾～＾）
             dec_minus_one_divided_of_3 = ((dec - 1) % 3 == 0)
             next = (dec - 1 ) // 3
+            # 奇数であることのチェック（＾～＾）
             next_is_odd = (next % 2 == 1)
             if next != 1 and next != 4 and next != 7 and dec_minus_one_divided_of_3 and next_is_odd:
                 # 「３掛けて１足す」の逆方向へ（＾～＾）
