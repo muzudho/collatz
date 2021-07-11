@@ -11,6 +11,9 @@ print("")
 # 現在位置
 dec = 1
 
+# ツリー・パス
+tree_path = [dec]
+
 # 得点
 score = 0
 
@@ -22,19 +25,30 @@ def is_integer(n):
     else:
         return float(n).is_integer()
 
+def print_tree_path():
+    global tree_path
+
+    for i, dec in enumerate(tree_path):
+        print(f"{dec}", end="")
+        if i<len(tree_path):
+            print(f"--", end="")
+    
+    print("")
+    print("")
+
 def print_score():
     global score
     print(f"SCORE: {score}")
     print("")
 
-def print_current(dec):
-    """現在位置の表示"""
-    dec_str = f"    {dec}    "
-    dec_str_width = len(dec_str)
-    under_line = "".rjust(dec_str_width, "-")
-    print(dec_str)
-    print(under_line)
-    print("")
+# def print_current(dec):
+#     """現在位置の表示"""
+#     dec_str = f"    {dec}    "
+#     dec_str_width = len(dec_str)
+#     under_line = "".rjust(dec_str_width, "-")
+#     print(dec_str)
+#     print(under_line)
+#     print("")
 
 def choice_next():
     """次の目的地の表示"""
@@ -65,10 +79,13 @@ def choice_next():
         print("")
 
         choice = input()
+        print("")
+        
         if is_integer(choice):
             choice = int(choice)
             if 1 <= choice and choice < len(next_list):
                 dec = next_list[choice]
+                tree_path.append(dec)
 
                 # 奇数なら得点
                 if dec % 2 == 1:
@@ -78,5 +95,6 @@ def choice_next():
 
 while True:
     print_score()
-    print_current(dec)
+    print_tree_path()
+    #print_current(dec)
     choice_next()
