@@ -2,7 +2,16 @@
 
 コラッツ予想（＾～＾）
 
+![20210711math76.png](./doc/img/20210711math76.png)  
+👆 maze.py  
+
 ## Run
+
+迷路(Maze):  
+
+```shell
+python maze.py
+```
 
 筆算表示(Calculating on paper like):  
 
@@ -26,12 +35,6 @@ python lifegame_lj.py
 
 ```shell
 python lifegame_lj_rev.py
-```
-
-WIP. 迷路(Maze):  
-
-```shell
-python maze.py
 ```
 
 ## Settings
