@@ -15,6 +15,33 @@ END_CUTOFF4 = 2
 END_BI = 4
 END_DEPTH = 5
 
+# 表示用
+radix_str = ""
+dec_str = ""
+
+def update_print_number(dec):
+    global radix_str
+    global dec_str
+    global numbers
+
+    radix_str = f"{dec:b}"
+
+    # 重複した枝とか見たくないんで（＾～＾）
+    if dec in numbers:
+        radix_str = f"{radix_str} is a dupricate"
+
+    elif dec == 4:
+        # 4から1に循環するので終わり（＾～＾）
+        radix_str = f"{radix_str} is edge case"
+
+    dec_str = str(dec)
+
+def print_number(indent):
+    global radix_str
+    global dec_str
+
+    print(f"{indent}({dec_str}) {radix_str}")
+
 def search(dec, depth, breadth, bi_count):
     """
     Parameters
@@ -46,20 +73,19 @@ def search(dec, depth, breadth, bi_count):
     for i in range(0, max_depth-depth):
         indent += "  "
 
+    # 表示
+    update_print_number(dec)
+    print_number(indent)
+
     # 重複した枝とか見たくないんで（＾～＾）
     if dec in numbers:
-        print(f"{indent}{dec} is a dupricate")
         return END_DUPURICATE
 
     numbers.add(dec)
 
     if dec == 4:
         # 4から1に循環するので終わり（＾～＾）
-        print(f"{indent}(4) {4:b} is edge case")
         return END_CUTOFF4
-
-    # 表示
-    print(f"{indent}({dec}) {dec:b}")
 
     #print(f"A ({dec}) {dec:b}")
 
