@@ -18,11 +18,19 @@ END_DEPTH = 5
 # 表示用
 radix_str = ""
 dec_str = ""
+indent = ""
 
-def update_print_number(dec):
+def update_print_number(dec, depth):
     global radix_str
     global dec_str
     global numbers
+    global max_depth
+    global indent
+
+    # 深さだけインデントしようぜ（＾～＾）？
+    indent = ""
+    for i in range(0, max_depth-depth):
+        indent += "  "
 
     radix_str = f"{dec:b}"
 
@@ -36,9 +44,10 @@ def update_print_number(dec):
 
     dec_str = str(dec)
 
-def print_number(indent):
+def print_number():
     global radix_str
     global dec_str
+    global indent
 
     print(f"{indent}({dec_str}) {radix_str}")
 
@@ -68,14 +77,9 @@ def search(dec, depth, breadth, bi_count):
     if depth == 0:
         return END_DEPTH
 
-    # 深さだけインデントしようぜ（＾～＾）？
-    indent = ""
-    for i in range(0, max_depth-depth):
-        indent += "  "
-
     # 表示
-    update_print_number(dec)
-    print_number(indent)
+    update_print_number(dec, depth)
+    print_number()
 
     # 重複した枝とか見たくないんで（＾～＾）
     if dec in numbers:
