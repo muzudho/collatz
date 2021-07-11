@@ -11,7 +11,7 @@ import numpy as np
 
 # 環境変数
 RADIX = int(os.getenv("RADIX", 2))
-BREADTH = int(os.getenv("BREADTH", 2)) # 探索の木の幅
+BREADTH = int(os.getenv("BREADTH", 4)) # 探索の木の幅
 DEPTH = int(os.getenv("DEPTH", 8)) # 探索の木の深さ
 
 numbers = set()
