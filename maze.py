@@ -59,30 +59,37 @@ def choice_next():
     global high_score
 
     while True:
-        print("Please enter a left number:")
-        print("   Pts.")
-
         next_list = [0]
-        point_list = [0]
         next_width = 0
+        point_list = [0]
+        point_width = 0
 
         if dec != 4 and dec != 7:
             next = (dec - 1 ) // 3
             if next != 1 and next != 4 and next != 7 and next % 2 == 1:
                 next_list.append(next)
-                point_list.append(3) # 奇数は 3 得点
                 next_width = max(next_width, len(str(next)))
+                point = 3 # 奇数は 3 得点
+                point_list.append(point)
+                point_width = max(point_width, len(str(next)))
 
             next = dec * 2
             for i in range(0,10 - len(next_list)):
                 next *= 2
                 next_list.append(next)
-                point_list.append(-1-1*i) # 偶数は減点
                 next_width = max(next_width, len(str(next)))
+                point = -1-1*i # 偶数は減点
+                point_list.append(point)
+                point_width = max(point_width, len(str(next)))
 
+        print("Please enter a left number:")
+        next_str = "".rjust(next_width)
+        print(f"   {next_str} Pts.")
         for i, next in enumerate(next_list):
             if i!=0:
-                print(f"{i}: {point_list[i]:>3}  {next_list[i]}")
+                next_str = str(next_list[i]).rjust(next_width)
+                point_str = str(point_list[i]).rjust(point_width)
+                print(f"{i}: {next_str} {point_str}")
 
         print(f"g: goal")
         print("")
@@ -90,7 +97,10 @@ def choice_next():
         choice = input()
         print("")
 
-        if is_integer(choice):
+        if choice == "g":
+            # 終わり
+            return
+        elif is_integer(choice):
             choice = int(choice)
             if 1 <= choice and choice < len(next_list):
                 dec = next_list[choice]
