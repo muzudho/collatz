@@ -9,7 +9,15 @@ print("+----------------+")
 print("")
 
 # 現在位置
-dec = 4
+dec = 1
+
+def is_integer(n):
+    try:
+        float(n)
+    except ValueError:
+        return False
+    else:
+        return float(n).is_integer()
 
 def print_current(dec):
     """現在位置の表示"""
@@ -20,21 +28,39 @@ def print_current(dec):
     print(under_line)
     print("")
 
-def print_next(dec):
+def choice_next():
     """次の目的地の表示"""
-    print("Please enter a left number:")
 
-    number = 1
+    global dec
 
-    if 4 < dec and dec != 7 and ((dec - 1) // 3) % 2 == 1:
-        next = (dec - 1 ) // 3
-        print(f"{number}: {next}")
+    while True:
+        print("Please enter a left number:")
 
-    next = dec * 2
-    for i in range(0,9):
-        print(f"{number}: {next}")
-        next *= 2
-        number += 1
+        number = 1
+        next_list = [0]
 
-print_current(dec)
-print_next(dec)
+        if dec != 4 and dec != 7:
+            next = (dec - 1 ) // 3
+            if next != 1 and next != 4 and next != 7 and next % 2 == 1:
+                next_list.append(next)
+                print(f"{number}: {next}")
+
+            next = dec * 2
+            for i in range(0,9):
+                print(f"{number}: {next}")
+                next *= 2
+                next_list.append(next)
+                number += 1
+
+        print(f"g: goal")
+
+        choice = input()
+        if is_integer(choice):
+            choice = int(choice)
+            if 1 <= choice and choice < 10:
+                dec = next_list[choice]
+                break
+
+while True:
+    print_current(dec)
+    choice_next()
