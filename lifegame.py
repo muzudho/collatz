@@ -23,8 +23,7 @@ def update_print_number(dec):
     global RADIX
 
     count_str = f"{count}"
-    radix_number = np.base_repr(dec, RADIX)
-    radix_str = f"{radix_number}"
+    radix_str = str(np.base_repr(dec, RADIX))
 
     # 桁数の更新
     # めんどくさいんで一気に足すぜ（＾～＾）

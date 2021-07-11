@@ -2,12 +2,18 @@
 左寄せ表記（Left justified）
 """
 
+import os
+import numpy as np
+
+# 環境変数
+RADIX = int(os.getenv("RADIX", 2))
+
 # 桁揃えに利用。10進数27 を指定したときの見やすさをデフォルトにするぜ（＾～＾）
 count_width = 3
 count_str = ""
 dec_width = 4
 dec_str = ""
-bin_str = ""
+radix_str = ""
 # 表示した数の個数
 count = 0
 
@@ -17,8 +23,9 @@ def update_print_number(dec):
     global count_str
     global dec_width
     global dec_str
-    global bin_str
+    global radix_str
     global count
+    global RADIX
 
     count_str = f"{count}"
 
@@ -29,19 +36,20 @@ def update_print_number(dec):
         dec_width += 1
 
     count_str = count_str.rjust(count_width)
+    radix_str = str(np.base_repr(dec, RADIX))
     dec_str = str(dec).rjust(dec_width)
-    bin_str = f"{dec:b}"
     count += 1
 
 def print_number():
     """表示"""
     global count_str
     global dec_str
-    global bin_str
+    global radix_str
 
-    print(f"[{count_str}] ({dec_str}) {bin_str}")
+    print(f"[{count_str}] ({dec_str}) {radix_str}")
 
 # 数を入力してください。
+print(f"RADIX={RADIX}")
 print("Please enter a number.")
 print("Example 1: 27")
 print("Example 2: 0b11011")
@@ -50,8 +58,8 @@ print("Example 2: 0b11011")
 number_str = input()
 
 if number_str.startswith("0b"):
-    bin_str = number_str[2:]
-    dec = int(bin_str, 2) # 2進数で入力されたものを10進に変換
+    radix_str = number_str[2:]
+    dec = int(radix_str, 2) # 2進数で入力されたものを10進に変換
 else:
     dec = int(number_str) # 10進数
 

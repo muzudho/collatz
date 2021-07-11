@@ -20,6 +20,7 @@ python lifegame.py
 左寄せライフゲーム表示(Lifegame like, Left justified):  
 
 ```shell
+set RADIX=8
 python lifegame_lj.py
 ```
 
