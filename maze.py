@@ -34,29 +34,30 @@ def print_tree_path():
 
     multiples_of_3_flag = False
 
-    distance = 0
     farthest_odd_number = 0
+    farthest_odd_number_distance = 0
 
     for i, node in enumerate(tree_path):
         print(f"{node}", end="")
+
+        # 奇数だったら更新（＾～＾）
+        farthest_odd_number = node
 
         # 3の倍数だったら１回だけメッセージを出すぜ（＾～＾）
         if node % 3 == 0:
             if not multiples_of_3_flag:
                 print(f"(Multiples of 3)", end="")
                 multiples_of_3_flag = True
-                distance += 1
-                farthest_odd_number = node
+                farthest_odd_number_distance += 1
         else:
-            distance += 1
-            farthest_odd_number = node
+            farthest_odd_number_distance += 1
 
         if i<len(tree_path):
             print(f"--", end="")
 
     print("")
 
-    print(f"Your farthest odd number {farthest_odd_number} ({distance} times)")
+    print(f"Your farthest odd number {farthest_odd_number} ({farthest_odd_number_distance} times)")
     print("")
 
 def choice_next():
