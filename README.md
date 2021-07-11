@@ -28,6 +28,12 @@ python lifegame_lj.py
 python lifegame_lj_rev.py
 ```
 
+WIP. 迷路(Maze):  
+
+```shell
+python maze.py
+```
+
 ## Settings
 
 ```shell
