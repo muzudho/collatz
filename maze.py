@@ -4,6 +4,7 @@
 
 CHOICE_NORMAL = 0
 CHOICE_GOAL = 1
+CHOICE_UNDO = 2
 
 # タイトル
 print("+----------------+")
@@ -11,11 +12,14 @@ print("| COLLATZ'S MAZE |")
 print("+----------------+")
 print("")
 
-# 現在位置
-dec = 1
-
 # ツリー・パス
-tree_path = [dec]
+# 初期位置は 1
+tree_path = [1]
+
+def get_dec():
+    """現在位置を取得"""
+    global tree_path
+    return tree_path[len(tree_path) - 1]
 
 def is_integer(n):
     try:
@@ -28,27 +32,18 @@ def is_integer(n):
 def print_tree_path():
     global tree_path
 
-    for i, dec in enumerate(tree_path):
-        print(f"{dec}", end="")
+    for i, node in enumerate(tree_path):
+        print(f"{node}", end="")
         if i<len(tree_path):
             print(f"--", end="")
 
     print("")
     print("")
 
-# def print_current(dec):
-#     """現在位置の表示"""
-#     dec_str = f"    {dec}    "
-#     dec_str_width = len(dec_str)
-#     under_line = "".rjust(dec_str_width, "-")
-#     print(dec_str)
-#     print(under_line)
-#     print("")
-
 def choice_next():
     """次の目的地の表示"""
 
-    global dec
+    dec = get_dec()
 
     while True:
         # リストのリスト
@@ -83,6 +78,7 @@ def choice_next():
 
                 print(f"{j}: {next_str}")
 
+        print(f"u: undo")
         print(f"g: goal")
         print("")
 
@@ -92,12 +88,16 @@ def choice_next():
         if choice == "g":
             # 終わり
             return CHOICE_GOAL
+        elif choice == "u":
+            # １個戻す（＾～＾）
+            tree_path.pop()
+            return CHOICE_UNDO
         elif is_integer(choice):
             choice = int(choice)
             if 1 <= choice and choice < len(next_list_list):
                 dec_list = next_list_list[choice]
-                for dec in dec_list:
-                    tree_path.append(dec)
+                for node in dec_list:
+                    tree_path.append(node)
                 break
 
     return CHOICE_NORMAL
