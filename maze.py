@@ -15,7 +15,8 @@ dec = 1
 tree_path = [dec]
 
 # 得点
-score = 0
+score = 30
+high_score = score
 
 def is_integer(n):
     try:
@@ -55,41 +56,46 @@ def choice_next():
 
     global dec
     global score
+    global high_score
 
     while True:
         print("Please enter a left number:")
+        print("   Pts.")
 
         next_list = [0]
+        point_list = [0]
 
         if dec != 4 and dec != 7:
             next = (dec - 1 ) // 3
             if next != 1 and next != 4 and next != 7 and next % 2 == 1:
                 next_list.append(next)
+                point_list.append(3) # 奇数は 3 得点
                 end = len(next_list)
-                print(f"{end-1}: {next_list[end-1]}")
+                print(f"{end-1}: {point_list[end-1]:>3}  {next_list[end-1]}")
 
             next = dec * 2
             for i in range(0,10 - len(next_list)):
                 next *= 2
                 next_list.append(next)
+                point_list.append(-1-1*i) # 偶数は減点
                 end = len(next_list)
-                print(f"{end-1}: {next_list[end-1]}")
+                print(f"{end-1}: {point_list[end-1]:>3}  {next_list[end-1]}")
 
         print(f"g: goal")
         print("")
 
         choice = input()
         print("")
-        
+
         if is_integer(choice):
             choice = int(choice)
             if 1 <= choice and choice < len(next_list):
                 dec = next_list[choice]
                 tree_path.append(dec)
 
-                # 奇数なら得点
-                if dec % 2 == 1:
-                    score += 1
+                # 得点
+                score += point_list[choice]
+                high_score = max(high_score, score)
 
                 break
 
