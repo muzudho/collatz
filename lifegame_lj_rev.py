@@ -23,6 +23,10 @@ END_CUTOFF4 = 2
 END_BI = 4
 END_DEPTH = 5
 
+# 探索の種類
+SEARCH_NORMAL = 0
+SEARCH_EVEN = 1
+
 # 表示用
 radix_str = ""
 dec_str = ""
@@ -64,7 +68,7 @@ def print_number():
 
     print(f"{indent}({dec_str}) {radix_str}")
 
-def search(dec, depth, bi_count):
+def search(dec, depth, search_type):
     """
     Parameters
     ----------
@@ -72,8 +76,8 @@ def search(dec, depth, bi_count):
         数
     depth : int
         深さ
-    bi_count : int
-        2倍した回数（＾～＾）
+    search_type: int
+        探索の種類（＾～＾）
 
     Returns
     -------
@@ -116,23 +120,21 @@ def search(dec, depth, bi_count):
             dec = (dec - 1 ) // 3
             #print(f"C ({dec}) {dec:b}")
 
-            search(dec=dec, depth=depth-1, bi_count = 0)
+            search(dec=dec, depth=depth-1, search_type=SEARCH_NORMAL)
 
-    # 2倍を何回かやるのも試すぜ（＾～＾）
-    if 4 < bi_count:
-        # キリが無いので 2倍 するのは終わり（＾～＾）
-        # 掘るの終わり
-        return END_BI
+    if search_type != SEARCH_EVEN:
+        for i in range(0, BREADTH):
+            # 重複していなければ、２倍しようぜ（＾～＾）？
+            if dec * 2 in numbers:
+                break
 
-    # ２倍しようぜ（＾～＾）？
-    for i in range(0, BREADTH):
-        dec = dec * 2
-        #print(f"D ({dec}) {dec:b}")
+            dec = dec * 2
+            #print(f"D ({dec}) {dec:b}")
 
-        ret_code = search(dec=dec, depth=depth-1, bi_count = bi_count+1)
-        if ret_code == END_DUPURICATE:
-            # 重複の枝なら、さっさと終わろ（＾～＾）
-            break
+            ret_code = search(dec=dec, depth=depth, search_type=SEARCH_EVEN)
+            if ret_code == END_DUPURICATE:
+                # 重複の枝なら、さっさと終わろ（＾～＾）
+                break
 
     # 掘るの終わり
     return END_NORMAL
@@ -157,5 +159,5 @@ else:
 # 初回表示
 print(f"Start {dec:b} ({dec})")
 
-search(dec=dec, depth=DEPTH, bi_count = 0)
+search(dec=dec, depth=DEPTH, search_type=SEARCH_NORMAL)
 print(f"Finished")
